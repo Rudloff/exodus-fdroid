@@ -110,7 +110,12 @@ class ScanCommand extends Command
         );
         $process->setEnv(['PYTHONPATH' => __DIR__.'/../vendor/Exodus-Privacy/exodus-core']);
         $process->inheritEnvironmentVariables();
-        $process->mustRun();
-        $this->io->block($process->getOutput());
+        $process->run();
+        $processOutput = $process->getOutput();
+        if (empty($processOutput)) {
+            $this->io->error($process->getErrorOutput());
+        } else {
+            $this->io->block($processOutput);
+        }
     }
 }
