@@ -1,0 +1,42 @@
+{
+  "license": "GPL-3.0-only",
+  "require": {
+    "fdroid/php-fdroid": "dev-master",
+    "Exodus-Privacy/exodus-standalone": "dev-master",
+    "Exodus-Privacy/exodus-core": "~1.0.15",
+    "symfony/process": "~3.4.1",
+    "guzzlehttp/guzzle": "~6.3.0",
+    "symfony/console": "~3.4.0"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "Exodus-Privacy/exodus-standalone",
+        "version": "dev-master",
+        "source": {
+          "url": "https://github.com/Exodus-Privacy/exodus-standalone.git",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "Exodus-Privacy/exodus-core",
+        "version": "1.0.15",
+        "source": {
+          "url": "https://github.com/Exodus-Privacy/exodus-core.git",
+          "type": "git",
+          "reference": "v1.0.15"
+        }
+      }
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ExodusFdroid\\": "classes/"
+    }
+  }
+}
