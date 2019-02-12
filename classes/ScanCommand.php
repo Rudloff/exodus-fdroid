@@ -76,7 +76,10 @@ class ScanCommand extends Command
         $fdroid = new fdroid($indexPath);
 
         $app = $fdroid->getAppById($input->getArgument('id'));
-
+        if (!isset($app->package)) {
+            $this->io->error('Could not find this app.');
+            return;
+        }
 
         if (is_array($app->package)) {
             $apkName = $app->package[0]->apkname;
