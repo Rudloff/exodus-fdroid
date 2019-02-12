@@ -3,7 +3,7 @@
   "require": {
     "fdroid/php-fdroid": "dev-master",
     "Exodus-Privacy/exodus-standalone": "dev-master",
-    "Exodus-Privacy/exodus-core": "~1.0.15",
+    "Exodus-Privacy/exodus-core": "~2.0.2",
     "symfony/process": "~3.4.1",
     "guzzlehttp/guzzle": "~6.3.0",
     "symfony/console": "~3.4.0"
@@ -25,11 +25,11 @@
       "type": "package",
       "package": {
         "name": "Exodus-Privacy/exodus-core",
-        "version": "1.0.15",
+        "version": "2.0.2",
         "source": {
           "url": "https://github.com/Exodus-Privacy/exodus-core.git",
           "type": "git",
-          "reference": "v1.0.15"
+          "reference": "v2.0.2"
         }
       }
     }
