@@ -2,6 +2,7 @@
   "name": "rudloff/exodus-fdroid",
   "description": "CLI tool to scan F-Droid packages with εxodus",
   "license": "GPL-3.0-only",
+  "type": "project",
   "require": {
     "fdroid/php-fdroid": "dev-master",
     "exodus-privacy/exodus-standalone": "dev-master",
