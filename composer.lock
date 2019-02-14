@@ -4,10 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab1de6139d68e8a12398f201770e4a66",
+    "content-hash": "22bf7e7ac06059f2f392842fdccba267",
     "packages": [
         {
-            "name": "Exodus-Privacy/exodus-core",
+            "name": "exodus-privacy/exodus-core",
             "version": "2.0.2",
             "source": {
                 "type": "git",
@@ -17,7 +17,7 @@
             "type": "library"
         },
         {
-            "name": "Exodus-Privacy/exodus-standalone",
+            "name": "exodus-privacy/exodus-standalone",
             "version": "dev-master",
             "source": {
                 "type": "git",

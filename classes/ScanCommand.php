@@ -104,11 +104,11 @@ class ScanCommand extends Command
         $process = new Process(
             [
                 'python3',
-                __DIR__.'/../vendor/Exodus-Privacy/exodus-standalone/exodus_analyze.py',
+                __DIR__.'/../vendor/exodus-privacy/exodus-standalone/exodus_analyze.py',
                 $apkPath
             ]
         );
-        $process->setEnv(['PYTHONPATH' => __DIR__.'/../vendor/Exodus-Privacy/exodus-core']);
+        $process->setEnv(['PYTHONPATH' => __DIR__.'/../vendor/exodus-privacy/exodus-core']);
         $process->inheritEnvironmentVariables();
         $process->run();
         $processOutput = $process->getOutput();
