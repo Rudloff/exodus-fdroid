@@ -108,7 +108,12 @@ class ScanCommand extends Command
                 $apkPath
             ]
         );
-        $process->setEnv(['PYTHONPATH' => __DIR__.'/../vendor/exodus-privacy/exodus-core']);
+        $process->setEnv(
+            [
+                'PYTHONPATH' => __DIR__.'/../vendor/androguard/androguard/:'.
+                    __DIR__.'/../vendor/exodus-privacy/exodus-core/'
+            ]
+        );
         $process->inheritEnvironmentVariables();
         $process->run();
         $processOutput = $process->getOutput();

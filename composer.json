@@ -9,7 +9,8 @@
     "exodus-privacy/exodus-core": "~2.0.2",
     "symfony/process": "~3.4.1",
     "guzzlehttp/guzzle": "~6.3.0",
-    "symfony/console": "~3.4.0"
+    "symfony/console": "~3.4.0",
+    "androguard/androguard": "~3.1.0"
   },
   "repositories": [
     {
@@ -35,7 +36,19 @@
           "reference": "v2.0.2"
         }
       }
+  },
+  {
+    "type": "package",
+    "package": {
+      "name": "androguard/androguard",
+      "version": "3.1.0",
+      "source": {
+        "url": "https://github.com/androguard/androguard.git",
+        "type": "git",
+        "reference": "v3.1.0"
+      }
     }
+  }
   ],
   "autoload": {
     "psr-4": {
