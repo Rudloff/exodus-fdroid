@@ -2,18 +2,17 @@
 
 namespace ExodusFdroid;
 
+use fdroid;
+use GuzzleHttp\Client;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use GuzzleHttp\Client;
-use fdroid;
+use Symfony\Component\Process\Process;
 
 class ScanCommand extends Command
 {
-
     private $io;
     private $downloadedBytes;
 
@@ -32,7 +31,7 @@ class ScanCommand extends Command
     {
         if ($downloadTotal > 0) {
             if (!isset($this->downloadedBytes)) {
-                    $this->io->progressStart($downloadTotal);
+                $this->io->progressStart($downloadTotal);
             } else {
                 $this->io->progressAdvance($downloadedBytes - $this->downloadedBytes);
             }
@@ -66,7 +65,7 @@ class ScanCommand extends Command
                 'GET',
                 'https://f-droid.org/repo/index.xml',
                 [
-                    'sink' => $indexPath
+                    'sink' => $indexPath,
                 ]
             );
             $this->finishDownload();
@@ -78,6 +77,7 @@ class ScanCommand extends Command
         $app = $fdroid->getAppById($input->getArgument('id'));
         if (!isset($app->package)) {
             $this->io->error('Could not find this app.');
+
             return;
         }
 
@@ -95,7 +95,7 @@ class ScanCommand extends Command
                 'GET',
                 'https://f-droid.org/repo/'.$apkName,
                 [
-                    'sink' => $apkPath
+                    'sink' => $apkPath,
                 ]
             );
             $this->finishDownload();
@@ -105,13 +105,13 @@ class ScanCommand extends Command
             [
                 'python3',
                 __DIR__.'/../vendor/exodus-privacy/exodus-standalone/exodus_analyze.py',
-                $apkPath
+                $apkPath,
             ]
         );
         $process->setEnv(
             [
                 'PYTHONPATH' => __DIR__.'/../vendor/androguard/androguard/:'.
-                    __DIR__.'/../vendor/exodus-privacy/exodus-core/'
+                    __DIR__.'/../vendor/exodus-privacy/exodus-core/',
             ]
         );
         $process->inheritEnvironmentVariables();
