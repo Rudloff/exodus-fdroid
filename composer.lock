@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22bf7e7ac06059f2f392842fdccba267",
+    "content-hash": "1f84d569ae4c0a8e39b187567d61914d",
     "packages": [
         {
             "name": "exodus-privacy/exodus-core",

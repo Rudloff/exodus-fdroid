@@ -1,4 +1,6 @@
 {
+  "name": "rudloff/exodus-fdroid",
+  "description": "CLI tool to scan F-Droid packages with εxodus",
   "license": "GPL-3.0-only",
   "require": {
     "fdroid/php-fdroid": "dev-master",
@@ -38,5 +40,6 @@
     "psr-4": {
       "ExodusFdroid\\": "classes/"
     }
-  }
+  },
+  "bin": "exodus-fdroid.php"
 }
