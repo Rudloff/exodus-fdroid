@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * ScanCommand class.
+ */
 namespace ExodusFdroid;
 
 use fdroid;
@@ -11,11 +13,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 
+/**
+ * Command that downloads and scan an APK.
+ */
 class ScanCommand extends Command
 {
+    /**
+     * CLI input/output wrapper.
+     * @var SymfonyStyle
+     */
     private $io;
+
+    /**
+     * Current number of downloaded bytes.
+     * @var int
+     */
     private $downloadedBytes;
 
+    /**
+     * Add command arguments.
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('scan')
@@ -27,6 +45,12 @@ class ScanCommand extends Command
             );
     }
 
+    /**
+     * Display a progress bar when downloading a file.
+     * @param int $downloadTotal   Total number of bytes to download
+     * @param int $downloadedBytes Number of bytes already downloaded
+     * @return void
+     */
     public function displayProgress($downloadTotal, $downloadedBytes)
     {
         if ($downloadTotal > 0) {
@@ -40,12 +64,22 @@ class ScanCommand extends Command
         }
     }
 
+    /**
+     * Stop updating the progress bar when a downloaded finished.
+     * @return void
+     */
     private function finishDownload()
     {
         unset($this->downloadedBytes);
         $this->io->progressFinish();
     }
 
+    /**
+     * Execute the command.
+     * @param  InputInterface  $input  Input
+     * @param  OutputInterface $output Output
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->io = new SymfonyStyle($input, $output);
