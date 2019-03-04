@@ -55,5 +55,5 @@
       "ExodusFdroid\\": "classes/"
     }
   },
-  "bin": "exodus-fdroid.php"
+  "bin": "exodus-fdroid"
 }

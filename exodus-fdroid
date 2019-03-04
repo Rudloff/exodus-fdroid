@@ -5,8 +5,10 @@ use Symfony\Component\Console\Application;
 
 require_once __DIR__.'/vendor/autoload.php';
 
-$app = new Application();
-$app->add(new ScanCommand());
+$app = new Application('exodus-fdroid');
+$scanCommand = new ScanCommand();
+$app->add($scanCommand);
+$app->setDefaultCommand($scanCommand->getName(), true);
 if (isset($_SERVER['argv'])) {
     $app->run();
 }

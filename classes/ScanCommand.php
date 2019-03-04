@@ -40,8 +40,9 @@ class ScanCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('scan')
+        $this->setName('exodus-fdroid')
             ->setDescription('Scan an APK')
+            ->addUsage('pro.rudloff.openvegemap')
             ->addArgument(
                 'id',
                 InputArgument::REQUIRED,
