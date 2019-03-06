@@ -186,10 +186,6 @@ class ScanCommand extends Command
         if (empty($processOutput)) {
             $this->io->error($process->getErrorOutput());
         } else {
-            if ($output->isDebug()) {
-                $this->io->section('JSON output');
-                $this->io->block($processOutput);
-            }
             $result = json_decode($processOutput);
             $this->io->title($result->application->name.' ('.$result->application->version_name.')');
             if (empty($result->trackers)) {
@@ -200,6 +196,11 @@ class ScanCommand extends Command
                     $trackers[] = $tracker->name;
                 }
                 $this->io->listing($trackers);
+            }
+
+            if ($output->isDebug()) {
+                $this->io->section('JSON output');
+                $this->io->block($processOutput);
             }
         }
     }
