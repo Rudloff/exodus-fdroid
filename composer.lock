@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96b1ef84143e3c94832632addcca1384",
+    "content-hash": "c6d44360f791303026fb47271a7994e3",
     "packages": [
         {
             "name": "androguard/androguard",
@@ -18,11 +18,10 @@
         },
         {
             "name": "exodus-privacy/exodus-core",
-            "version": "1.0.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Exodus-Privacy/exodus-core.git",
-                "reference": "v1.0.15"
+            "version": "2.0.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v2.0.2/exodus_core-2.0.2.tar.gz"
             },
             "type": "library"
         },

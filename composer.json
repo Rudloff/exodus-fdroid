@@ -6,7 +6,7 @@
   "require": {
     "fdroid/php-fdroid": "dev-master",
     "exodus-privacy/exodus-standalone": "dev-master",
-    "exodus-privacy/exodus-core": "~1.0.15",
+    "exodus-privacy/exodus-core": "~2.0.2",
     "symfony/process": "~3.4.1",
     "guzzlehttp/guzzle": "~6.3.0",
     "symfony/console": "~3.4.0",
@@ -32,11 +32,10 @@
       "type": "package",
       "package": {
         "name": "exodus-privacy/exodus-core",
-        "version": "1.0.15",
-        "source": {
-          "url": "https://github.com/Exodus-Privacy/exodus-core.git",
-          "type": "git",
-          "reference": "v1.0.15"
+        "version": "2.0.2",
+        "dist": {
+          "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v2.0.2/exodus_core-2.0.2.tar.gz",
+          "type": "tar"
         }
       }
     },
