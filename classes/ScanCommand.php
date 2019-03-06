@@ -34,6 +34,26 @@ class ScanCommand extends Command
     private $downloadedBytes;
 
     /**
+     * Name of the temporary folder used to store the index and APK file.
+     * @var [type]
+     */
+    private $tmpRoot;
+
+    /**
+     * ScanCommand constructor.
+     * @param string $tmpName Name of the temporary folder
+     */
+    public function __construct($tmpRoot = null)
+    {
+        parent::__construct();
+        if (isset($tmpRoot)) {
+            $this->tmpRoot = $tmpRoot;
+        } else {
+            $this->tmpRoot = sys_get_temp_dir().'/fdroid/';
+        }
+    }
+
+    /**
      * Add command arguments.
      *
      * @return void
@@ -96,12 +116,11 @@ class ScanCommand extends Command
 
         $client = new Client(['progress' => [$this, 'displayProgress']]);
 
-        $tmpRoot = sys_get_temp_dir().'/fdroid/';
-        if (!is_dir($tmpRoot)) {
-            mkdir($tmpRoot);
+        if (!is_dir($this->tmpRoot)) {
+            mkdir($this->tmpRoot);
         }
 
-        $indexPath = $tmpRoot.'index.xml';
+        $indexPath = $this->tmpRoot.'index.xml';
 
         if (!is_file($indexPath)) {
             $this->io->text('Downloading index file to '.$indexPath);
@@ -131,7 +150,7 @@ class ScanCommand extends Command
             $apkName = $app->package->apkname;
         }
 
-        $apkPath = $tmpRoot.$apkName;
+        $apkPath = $this->tmpRoot.$apkName;
 
         if (!is_file($apkPath)) {
             $this->io->text('Downloading APK file to '.$apkPath);

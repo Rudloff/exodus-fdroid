@@ -12,6 +12,9 @@
     "symfony/console": "~3.4.0",
     "androguard/androguard": "~3.1.0"
   },
+  "require-dev": {
+    "phpunit/phpunit": "~6.5.2"
+  },
   "repositories": [
     {
       "type": "package",
@@ -36,24 +39,27 @@
           "reference": "v2.0.2"
         }
       }
-  },
-  {
-    "type": "package",
-    "package": {
-      "name": "androguard/androguard",
-      "version": "3.1.0",
-      "source": {
-        "url": "https://github.com/androguard/androguard.git",
-        "type": "git",
-        "reference": "v3.1.0"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "androguard/androguard",
+        "version": "3.1.0",
+        "source": {
+          "url": "https://github.com/androguard/androguard.git",
+          "type": "git",
+          "reference": "v3.1.0"
+        }
       }
     }
-  }
   ],
   "autoload": {
     "psr-4": {
       "ExodusFdroid\\": "classes/"
     }
   },
-  "bin": "exodus-fdroid"
+  "bin": "exodus-fdroid",
+  "scripts": {
+    "test": "phpunit"
+  }
 }
