@@ -44,7 +44,7 @@ class ScanCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $this->commandTester->execute(['id' => 'pro.rudloff.openvegemap']);
+        $this->commandTester->execute(['id' => 'pro.rudloff.openvegemap'], ['-vvv']);
         $this->assertContains('OpenVegeMap', $this->commandTester->getDisplay());
 
         // We need an app with only one release to test the case where $app->package is not an array.
