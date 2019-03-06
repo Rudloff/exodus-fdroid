@@ -35,12 +35,14 @@ class ScanCommand extends Command
 
     /**
      * Name of the temporary folder used to store the index and APK file.
-     * @var [type]
+     *
+     * @var string
      */
     private $tmpRoot;
 
     /**
      * ScanCommand constructor.
+     *
      * @param string $tmpName Name of the temporary folder
      */
     public function __construct($tmpRoot = null)
@@ -168,6 +170,7 @@ class ScanCommand extends Command
             [
                 'python3',
                 __DIR__.'/../vendor/exodus-privacy/exodus-standalone/exodus_analyze.py',
+                '-j',
                 $apkPath,
             ]
         );
@@ -183,7 +186,17 @@ class ScanCommand extends Command
         if (empty($processOutput)) {
             $this->io->error($process->getErrorOutput());
         } else {
-            $this->io->block($processOutput);
+            $result = json_decode($processOutput);
+            $this->io->title($result->application->name.' ('.$result->application->version_name.')');
+            if (empty($result->trackers)) {
+                $this->io->success('No trackers found');
+            } else {
+                $trackers = [];
+                foreach ($result->trackers as $tracker) {
+                    $trackers[] = $tracker->name;
+                }
+                $this->io->listing($trackers);
+            }
         }
     }
 }

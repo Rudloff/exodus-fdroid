@@ -28,6 +28,7 @@ class ScanCommandTest extends TestCase
 
     /**
      * Test the constructor withtout any arguments.
+     *
      * @return void
      */
     public function testConstructorWithoutArguments()
@@ -38,6 +39,7 @@ class ScanCommandTest extends TestCase
 
     /**
      * Test the execute() function.
+     *
      * @return void
      */
     public function testExecute()
@@ -48,10 +50,15 @@ class ScanCommandTest extends TestCase
         // We need an app with only one release to test the case where $app->package is not an array.
         $this->commandTester->execute(['id' => 'com.android.talkback']);
         $this->assertContains('TalkBack', $this->commandTester->getDisplay());
+
+        // We need an app with some trackers.
+        $this->commandTester->execute(['id' => 'org.wikipedia']);
+        $this->assertContains('Wikipedia', $this->commandTester->getDisplay());
     }
 
     /**
      * Test the execute() function with an invalid app ID.
+     *
      * @return void
      */
     public function testExecuteWithInvalidId()
