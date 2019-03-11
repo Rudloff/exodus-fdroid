@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6d44360f791303026fb47271a7994e3",
+    "content-hash": "39f03792c7f265607b93b2e9335620e2",
     "packages": [
         {
             "name": "androguard/androguard",
@@ -38,7 +38,7 @@
         },
         {
             "name": "fdroid/php-fdroid",
-            "version": "dev-master",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/fdroid/php-fdroid.git",
@@ -2146,7 +2146,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fdroid/php-fdroid": 20,
         "exodus-privacy/exodus-standalone": 20
     },
     "prefer-stable": false,

@@ -4,7 +4,7 @@
   "license": "GPL-3.0-only",
   "type": "project",
   "require": {
-    "fdroid/php-fdroid": "dev-master",
+    "fdroid/php-fdroid": "~0.5.0",
     "exodus-privacy/exodus-standalone": "dev-master",
     "exodus-privacy/exodus-core": "~2.0.2",
     "symfony/process": "~3.4.1",
