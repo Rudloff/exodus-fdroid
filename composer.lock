@@ -4,38 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39f03792c7f265607b93b2e9335620e2",
+    "content-hash": "79b8560d15b1bd1dfd51dd6ca9a2cb6a",
     "packages": [
-        {
-            "name": "androguard/androguard",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/androguard/androguard.git",
-                "reference": "v3.1.0"
-            },
-            "type": "library"
-        },
-        {
-            "name": "exodus-privacy/exodus-core",
-            "version": "2.0.2",
-            "dist": {
-                "type": "tar",
-                "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v2.0.2/exodus_core-2.0.2.tar.gz"
-            },
-            "type": "library"
-        },
-        {
-            "name": "exodus-privacy/exodus-standalone",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Exodus-Privacy/exodus-standalone.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2018-09-05T12:55:39+00:00"
-        },
         {
             "name": "fdroid/php-fdroid",
             "version": "v0.5.0",
@@ -626,6 +596,15 @@
     ],
     "packages-dev": [
         {
+            "name": "androguard/androguard",
+            "version": "3.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://github.com/androguard/androguard/archive/v3.1.0.tar.gz"
+            },
+            "type": "library"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -678,6 +657,24 @@
                 "instantiate"
             ],
             "time": "2015-06-14T21:17:01+00:00"
+        },
+        {
+            "name": "exodus-privacy/exodus-core",
+            "version": "2.0.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v2.0.2/exodus_core-2.0.2.tar.gz"
+            },
+            "type": "library"
+        },
+        {
+            "name": "exodus-privacy/exodus-standalone",
+            "version": "dev-master",
+            "dist": {
+                "type": "tar",
+                "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/2806eea1d8bbd75d48ec807f40ec6960bc96b323.tar.gz"
+            },
+            "type": "library"
         },
         {
             "name": "myclabs/deep-copy",
