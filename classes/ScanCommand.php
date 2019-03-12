@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
@@ -65,10 +66,17 @@ class ScanCommand extends Command
         $this->setName('exodus-fdroid')
             ->setDescription('Scan an APK')
             ->addUsage('pro.rudloff.openvegemap')
+            ->addUsage('--path /path/to/apk')
             ->addArgument(
                 'id',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'App ID'
+            )
+            ->addOption(
+                'path',
+                'p',
+                InputOption::VALUE_REQUIRED,
+                "Scan a local APK instead (don't download it from f-droid.org)"
             );
     }
 
@@ -116,54 +124,65 @@ class ScanCommand extends Command
     {
         $this->io = new SymfonyStyle($input, $output);
 
-        $client = new Client(['progress' => [$this, 'displayProgress']]);
+        $apkPath = $input->getOption('path');
+        $appId = $input->getArgument('id');
 
-        if (!is_dir($this->tmpRoot)) {
-            mkdir($this->tmpRoot);
-        }
+        if (!isset($apkPath)) {
+            if (isset($appId)) {
+                $client = new Client(['progress' => [$this, 'displayProgress']]);
 
-        $indexPath = $this->tmpRoot.'index.xml';
+                if (!is_dir($this->tmpRoot)) {
+                    mkdir($this->tmpRoot);
+                }
 
-        if (!is_file($indexPath)) {
-            $this->io->text('Downloading index file to '.$indexPath);
-            $client->request(
-                'GET',
-                'https://f-droid.org/repo/index.xml',
-                [
-                    'sink' => $indexPath,
-                ]
-            );
-            $this->finishDownload();
-        }
+                $indexPath = $this->tmpRoot.'index.xml';
 
-        // The fdroid constructor wants a path.
-        $fdroid = new fdroid($indexPath);
+                if (!is_file($indexPath)) {
+                    $this->io->text('Downloading index file to '.$indexPath);
+                    $client->request(
+                        'GET',
+                        'https://f-droid.org/repo/index.xml',
+                        [
+                            'sink' => $indexPath,
+                        ]
+                    );
+                    $this->finishDownload();
+                }
 
-        $app = $fdroid->getAppById($input->getArgument('id'));
-        if (!isset($app->package)) {
-            $this->io->error('Could not find this app.');
+                // The fdroid constructor wants a path.
+                $fdroid = new fdroid($indexPath);
 
-            return;
-        }
+                $app = $fdroid->getAppById($appId);
+                if (!isset($app->package)) {
+                    $this->io->error('Could not find this app.');
 
-        if (is_array($app->package)) {
-            $apkName = $app->package[0]->apkname;
-        } else {
-            $apkName = $app->package->apkname;
-        }
+                    return;
+                }
 
-        $apkPath = $this->tmpRoot.$apkName;
+                if (is_array($app->package)) {
+                    $apkName = $app->package[0]->apkname;
+                } else {
+                    $apkName = $app->package->apkname;
+                }
 
-        if (!is_file($apkPath)) {
-            $this->io->text('Downloading APK file to '.$apkPath);
-            $client->request(
-                'GET',
-                'https://f-droid.org/repo/'.$apkName,
-                [
-                    'sink' => $apkPath,
-                ]
-            );
-            $this->finishDownload();
+                $apkPath = $this->tmpRoot.$apkName;
+
+                if (!is_file($apkPath)) {
+                    $this->io->text('Downloading APK file to '.$apkPath);
+                    $client->request(
+                        'GET',
+                        'https://f-droid.org/repo/'.$apkName,
+                        [
+                            'sink' => $apkPath,
+                        ]
+                    );
+                    $this->finishDownload();
+                }
+            } else {
+                $this->io->error('Please specify an app ID.');
+
+                return;
+            }
         }
 
         $process = new Process(
