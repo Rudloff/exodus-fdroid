@@ -201,10 +201,8 @@ class ScanCommand extends Command
         );
         $process->inheritEnvironmentVariables();
         $process->run();
-        $processOutput = $process->getOutput();
-        if (empty($processOutput)) {
-            $this->io->error($process->getErrorOutput());
-        } else {
+        if ($process->isSuccessful()) {
+            $processOutput = $process->getOutput();
             $result = json_decode($processOutput);
             $this->io->title($result->application->name.' ('.$result->application->version_name.')');
             if (empty($result->trackers)) {
@@ -221,6 +219,8 @@ class ScanCommand extends Command
                 $this->io->section('JSON output');
                 $this->io->block($processOutput);
             }
+        } else {
+            $this->io->error($process->getErrorOutput());
         }
     }
 }
