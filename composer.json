@@ -4,12 +4,15 @@
   "license": "GPL-3.0-only",
   "type": "project",
   "require": {
-    "fdroid/php-fdroid": "dev-master",
-    "exodus-privacy/exodus-standalone": "dev-master",
-    "exodus-privacy/exodus-core": "~2.0.2",
+    "fdroid/php-fdroid": "~0.5.0",
     "symfony/process": "~3.4.1",
     "guzzlehttp/guzzle": "~6.3.0",
-    "symfony/console": "~3.4.0",
+    "symfony/console": "~3.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.5.2",
+    "exodus-privacy/exodus-standalone": "dev-master",
+    "exodus-privacy/exodus-core": "~2.0.2",
     "androguard/androguard": "~3.1.0"
   },
   "repositories": [
@@ -18,10 +21,9 @@
       "package": {
         "name": "exodus-privacy/exodus-standalone",
         "version": "dev-master",
-        "source": {
-          "url": "https://github.com/Exodus-Privacy/exodus-standalone.git",
-          "type": "git",
-          "reference": "master"
+        "dist": {
+          "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/2806eea1d8bbd75d48ec807f40ec6960bc96b323.tar.gz",
+          "type": "tar"
         }
       }
     },
@@ -30,30 +32,33 @@
       "package": {
         "name": "exodus-privacy/exodus-core",
         "version": "2.0.2",
-        "source": {
-          "url": "https://github.com/Exodus-Privacy/exodus-core.git",
-          "type": "git",
-          "reference": "v2.0.2"
+        "dist": {
+          "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v2.0.2/exodus_core-2.0.2.tar.gz",
+          "type": "tar"
         }
       }
-  },
-  {
-    "type": "package",
-    "package": {
-      "name": "androguard/androguard",
-      "version": "3.1.0",
-      "source": {
-        "url": "https://github.com/androguard/androguard.git",
-        "type": "git",
-        "reference": "v3.1.0"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "androguard/androguard",
+        "version": "3.1.0",
+        "dist": {
+          "url": "https://github.com/androguard/androguard/archive/v3.1.0.tar.gz",
+          "type": "tar"
+        }
       }
     }
-  }
   ],
   "autoload": {
     "psr-4": {
       "ExodusFdroid\\": "classes/"
     }
   },
-  "bin": "exodus-fdroid.php"
+  "bin": [
+    "exodus-fdroid"
+  ],
+  "scripts": {
+    "test": "phpunit"
+  }
 }

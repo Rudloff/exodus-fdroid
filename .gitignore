@@ -1,1 +1,7 @@
-vendor/
+vendor/*
+!vendor/exodus-privacy/
+!vendor/androguard/
+vendor/androguard/androguard/examples/
+__pycache__
+coverage/
+clover.xml

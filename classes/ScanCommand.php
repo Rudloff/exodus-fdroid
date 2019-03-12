@@ -1,26 +1,70 @@
 <?php
+/**
+ * ScanCommand class.
+ */
 
 namespace ExodusFdroid;
 
+use fdroid;
+use GuzzleHttp\Client;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use GuzzleHttp\Client;
-use fdroid;
+use Symfony\Component\Process\Process;
 
+/**
+ * Command that downloads and scan an APK.
+ */
 class ScanCommand extends Command
 {
-
+    /**
+     * CLI input/output wrapper.
+     *
+     * @var SymfonyStyle
+     */
     private $io;
+
+    /**
+     * Current number of downloaded bytes.
+     *
+     * @var int
+     */
     private $downloadedBytes;
 
+    /**
+     * Name of the temporary folder used to store the index and APK file.
+     *
+     * @var string
+     */
+    private $tmpRoot;
+
+    /**
+     * ScanCommand constructor.
+     *
+     * @param string $tmpName Name of the temporary folder
+     */
+    public function __construct($tmpRoot = null)
+    {
+        parent::__construct();
+        if (isset($tmpRoot)) {
+            $this->tmpRoot = $tmpRoot;
+        } else {
+            $this->tmpRoot = sys_get_temp_dir().'/fdroid/';
+        }
+    }
+
+    /**
+     * Add command arguments.
+     *
+     * @return void
+     */
     protected function configure()
     {
-        $this->setName('scan')
+        $this->setName('exodus-fdroid')
             ->setDescription('Scan an APK')
+            ->addUsage('pro.rudloff.openvegemap')
             ->addArgument(
                 'id',
                 InputArgument::REQUIRED,
@@ -28,11 +72,19 @@ class ScanCommand extends Command
             );
     }
 
+    /**
+     * Display a progress bar when downloading a file.
+     *
+     * @param int $downloadTotal   Total number of bytes to download
+     * @param int $downloadedBytes Number of bytes already downloaded
+     *
+     * @return void
+     */
     public function displayProgress($downloadTotal, $downloadedBytes)
     {
         if ($downloadTotal > 0) {
             if (!isset($this->downloadedBytes)) {
-                    $this->io->progressStart($downloadTotal);
+                $this->io->progressStart($downloadTotal);
             } else {
                 $this->io->progressAdvance($downloadedBytes - $this->downloadedBytes);
             }
@@ -41,24 +93,36 @@ class ScanCommand extends Command
         }
     }
 
+    /**
+     * Stop updating the progress bar when a downloaded finished.
+     *
+     * @return void
+     */
     private function finishDownload()
     {
         unset($this->downloadedBytes);
         $this->io->progressFinish();
     }
 
+    /**
+     * Execute the command.
+     *
+     * @param InputInterface  $input  Input
+     * @param OutputInterface $output Output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->io = new SymfonyStyle($input, $output);
 
         $client = new Client(['progress' => [$this, 'displayProgress']]);
 
-        $tmpRoot = sys_get_temp_dir().'/fdroid/';
-        if (!is_dir($tmpRoot)) {
-            mkdir($tmpRoot);
+        if (!is_dir($this->tmpRoot)) {
+            mkdir($this->tmpRoot);
         }
 
-        $indexPath = $tmpRoot.'index.xml';
+        $indexPath = $this->tmpRoot.'index.xml';
 
         if (!is_file($indexPath)) {
             $this->io->text('Downloading index file to '.$indexPath);
@@ -66,7 +130,7 @@ class ScanCommand extends Command
                 'GET',
                 'https://f-droid.org/repo/index.xml',
                 [
-                    'sink' => $indexPath
+                    'sink' => $indexPath,
                 ]
             );
             $this->finishDownload();
@@ -78,6 +142,7 @@ class ScanCommand extends Command
         $app = $fdroid->getAppById($input->getArgument('id'));
         if (!isset($app->package)) {
             $this->io->error('Could not find this app.');
+
             return;
         }
 
@@ -87,7 +152,7 @@ class ScanCommand extends Command
             $apkName = $app->package->apkname;
         }
 
-        $apkPath = $tmpRoot.$apkName;
+        $apkPath = $this->tmpRoot.$apkName;
 
         if (!is_file($apkPath)) {
             $this->io->text('Downloading APK file to '.$apkPath);
@@ -95,7 +160,7 @@ class ScanCommand extends Command
                 'GET',
                 'https://f-droid.org/repo/'.$apkName,
                 [
-                    'sink' => $apkPath
+                    'sink' => $apkPath,
                 ]
             );
             $this->finishDownload();
@@ -105,13 +170,14 @@ class ScanCommand extends Command
             [
                 'python3',
                 __DIR__.'/../vendor/exodus-privacy/exodus-standalone/exodus_analyze.py',
-                $apkPath
+                '-j',
+                $apkPath,
             ]
         );
         $process->setEnv(
             [
                 'PYTHONPATH' => __DIR__.'/../vendor/androguard/androguard/:'.
-                    __DIR__.'/../vendor/exodus-privacy/exodus-core/'
+                    __DIR__.'/../vendor/exodus-privacy/exodus-core/',
             ]
         );
         $process->inheritEnvironmentVariables();
@@ -120,7 +186,22 @@ class ScanCommand extends Command
         if (empty($processOutput)) {
             $this->io->error($process->getErrorOutput());
         } else {
-            $this->io->block($processOutput);
+            $result = json_decode($processOutput);
+            $this->io->title($result->application->name.' ('.$result->application->version_name.')');
+            if (empty($result->trackers)) {
+                $this->io->success('No trackers found');
+            } else {
+                $trackers = [];
+                foreach ($result->trackers as $tracker) {
+                    $trackers[] = $tracker->name;
+                }
+                $this->io->listing($trackers);
+            }
+
+            if ($output->isDebug()) {
+                $this->io->section('JSON output');
+                $this->io->block($processOutput);
+            }
         }
     }
 }
