@@ -3,7 +3,12 @@
 use ExodusFdroid\ScanCommand;
 use Symfony\Component\Console\Application;
 
-require_once __DIR__.'/vendor/autoload.php';
+if (file_exists(__DIR__.'/vendor/autoload.php')) {
+    require __DIR__.'/vendor/autoload.php';
+} else {
+    // Package is installed globally.
+    require __DIR__.'/../../autoload.php';
+}
 
 $app = new Application('exodus-fdroid');
 $scanCommand = new ScanCommand();
