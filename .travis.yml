@@ -16,3 +16,4 @@ addons:
       - python3-future
       - python3-pip
       - python3-setuptools
+      - dexdump
