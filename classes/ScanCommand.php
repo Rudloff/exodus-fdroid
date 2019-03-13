@@ -190,7 +190,7 @@ class ScanCommand extends Command
         $appId = $input->getArgument('id');
 
         if (!isset($apkPath)) {
-            if (isset($appId)) {
+            if (isset($appId) && is_string($appId)) {
                 $apkPath = $this->downloadApk($appId);
             } else {
                 $this->io->error('Please specify an app ID.');
