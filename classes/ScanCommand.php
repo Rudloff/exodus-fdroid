@@ -156,7 +156,7 @@ class ScanCommand extends Command
                 if (!isset($app->package)) {
                     $this->io->error('Could not find this app.');
 
-                    return;
+                    return 1;
                 }
 
                 if (is_array($app->package)) {
@@ -181,7 +181,7 @@ class ScanCommand extends Command
             } else {
                 $this->io->error('Please specify an app ID.');
 
-                return;
+                return 1;
             }
         }
 
@@ -225,6 +225,8 @@ class ScanCommand extends Command
             }
         } else {
             $this->io->error($errorOutput);
+
+            return $process->getExitCode();
         }
     }
 }
