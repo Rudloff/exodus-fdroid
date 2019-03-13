@@ -10,7 +10,7 @@ if (file_exists(__DIR__.'/vendor/autoload.php')) {
     require __DIR__.'/../../autoload.php';
 }
 
-$app = new Application('exodus-fdroid');
+$app = new Application('exodus-fdroid', '0.1.1');
 $scanCommand = new ScanCommand();
 $app->add($scanCommand);
 $app->setDefaultCommand($scanCommand->getName(), true);
