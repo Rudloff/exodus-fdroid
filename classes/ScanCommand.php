@@ -118,7 +118,7 @@ class ScanCommand extends Command
      * @param InputInterface  $input  Input
      * @param OutputInterface $output Output
      *
-     * @return void
+     * @return int|null
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
