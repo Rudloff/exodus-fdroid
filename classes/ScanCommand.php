@@ -201,7 +201,11 @@ class ScanCommand extends Command
         );
         $process->inheritEnvironmentVariables();
         $process->run();
-        if ($process->isSuccessful()) {
+
+        $errorOutput = $process->getErrorOutput();
+
+        // exodus-standalone returns the number of trackers in the exit code so isSuccessful() is not reliable.
+        if (empty($errorOutput)) {
             $processOutput = $process->getOutput();
             $result = json_decode($processOutput);
             $this->io->title($result->application->name.' ('.$result->application->version_name.')');
@@ -220,7 +224,7 @@ class ScanCommand extends Command
                 $this->io->block($processOutput);
             }
         } else {
-            $this->io->error($process->getErrorOutput());
+            $this->io->error($errorOutput);
         }
     }
 }
