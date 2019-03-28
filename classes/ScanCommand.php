@@ -44,7 +44,7 @@ class ScanCommand extends Command
     /**
      * ScanCommand constructor.
      *
-     * @param string $tmpName Name of the temporary folder
+     * @param string $tmpRoot Name of the temporary folder
      */
     public function __construct($tmpRoot = null)
     {
