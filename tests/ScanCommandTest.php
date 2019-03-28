@@ -15,7 +15,6 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class ScanCommandTest extends TestCase
 {
-
     /**
      * Object used to call commands in tests.
      *
