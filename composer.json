@@ -52,7 +52,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "ExodusFdroid\\": "classes/"
+        "ExodusFdroid\\": "classes/",
+        "ExodusFdroid\\Test\\": "tests/"
     }
   },
   "bin": [
