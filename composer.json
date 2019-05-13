@@ -13,7 +13,8 @@
     "phpunit/phpunit": "~6.5.2",
     "exodus-privacy/exodus-standalone": "dev-master",
     "exodus-privacy/exodus-core": "~2.0.2",
-    "androguard/androguard": "~3.1.0"
+    "androguard/androguard": "~3.1.0",
+    "cweagans/composer-patches": "~1.6.5"
   },
   "repositories": [
     {
@@ -60,5 +61,12 @@
   ],
   "scripts": {
     "test": "phpunit"
+  },
+  "extra": {
+    "patches": {
+      "exodus-privacy/exodus-standalone": {
+        "Fix an error when listing libraries": "https://github.com/Rudloff/exodus-fdroid/commit/40180a547a857693f797119018ffe8702c01cb92.patch"
+      }
+    }
   }
 }
