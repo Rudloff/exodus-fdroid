@@ -5,6 +5,7 @@
 
 namespace ExodusFdroid;
 
+use Exception;
 use fdroid;
 use GuzzleHttp\Client;
 use Symfony\Component\Console\Command\Command;
@@ -44,7 +45,7 @@ class ScanCommand extends Command
     /**
      * ScanCommand constructor.
      *
-     * @param string $tmpName Name of the temporary folder
+     * @param string $tmpRoot Name of the temporary folder
      */
     public function __construct($tmpRoot = null)
     {
@@ -146,9 +147,7 @@ class ScanCommand extends Command
 
         $app = $fdroid->getAppById($appId);
         if (!isset($app->package)) {
-            $this->io->error('Could not find this app.');
-
-            return 1;
+            throw new Exception('Could not find this app.');
         }
 
         if (is_array($app->package)) {
@@ -191,7 +190,13 @@ class ScanCommand extends Command
 
         if (!isset($apkPath)) {
             if (isset($appId) && is_string($appId)) {
-                $apkPath = $this->downloadApk($appId);
+                try {
+                    $apkPath = $this->downloadApk($appId);
+                } catch (Exception $e) {
+                    $this->io->error($e->getMessage());
+
+                    return 1;
+                }
             } else {
                 $this->io->error('Please specify an app ID.');
 
