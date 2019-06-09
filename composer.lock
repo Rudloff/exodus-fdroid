@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7fba42780883dedbc6f52bbd7e897c1b",
+    "content-hash": "fea64a8abc8f2a04445e63ae1be1c25f",
     "packages": [
         {
             "name": "fdroid/php-fdroid",
@@ -716,7 +716,8 @@
             "version": "dev-master",
             "dist": {
                 "type": "tar",
-                "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8.tar.gz"
+                "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8.tar.gz",
+                "reference": "c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8"
             },
             "type": "library",
             "extra": {

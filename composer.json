@@ -11,7 +11,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~6.5.2",
-    "exodus-privacy/exodus-standalone": "dev-master",
+    "exodus-privacy/exodus-standalone": "dev-master#c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8",
     "exodus-privacy/exodus-core": "~2.0.2",
     "androguard/androguard": "~3.1.0",
     "cweagans/composer-patches": "~1.6.5"
@@ -23,7 +23,7 @@
         "name": "exodus-privacy/exodus-standalone",
         "version": "dev-master",
         "dist": {
-          "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/2806eea1d8bbd75d48ec807f40ec6960bc96b323.tar.gz",
+          "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8.tar.gz",
           "type": "tar"
         }
       }
@@ -62,12 +62,5 @@
   ],
   "scripts": {
     "test": "phpunit"
-  },
-  "extra": {
-    "patches": {
-      "exodus-privacy/exodus-standalone": {
-        "Fix an error when listing libraries": "https://github.com/Rudloff/exodus-fdroid/commit/40180a547a857693f797119018ffe8702c01cb92.patch"
-      }
-    }
   }
 }
