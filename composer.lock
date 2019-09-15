@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d43fc14ff0f3d7a758ba18166fc7746",
+    "content-hash": "33853ab63bf14b43e21ddb9628b5676f",
     "packages": [
         {
             "name": "fdroid/php-fdroid",
@@ -837,10 +837,10 @@
         },
         {
             "name": "exodus-privacy/exodus-core",
-            "version": "2.0.2",
+            "version": "1.0.15",
             "dist": {
                 "type": "tar",
-                "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v2.0.2/exodus_core-2.0.2.tar.gz"
+                "url": "https://github.com/Exodus-Privacy/exodus-core/releases/download/v1.0.15/exodus_core-1.0.15.tar.gz"
             },
             "type": "library"
         },
