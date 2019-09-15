@@ -84,7 +84,7 @@ class ScanCommand extends Command
                 'repo-url',
                 null,
                 InputOption::VALUE_REQUIRED,
-                "Specify a custom repository URL",
+                'Specify a custom repository URL',
                 'https://f-droid.org/repo/'
             );
     }
@@ -125,7 +125,7 @@ class ScanCommand extends Command
      * Download an APK from f-droid.org.
      *
      * @param string $repoUrl Repository URL
-     * @param string $appId App ID
+     * @param string $appId   App ID
      *
      * @return string Path to the downloaded APK
      */
