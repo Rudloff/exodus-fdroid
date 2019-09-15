@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fea64a8abc8f2a04445e63ae1be1c25f",
+    "content-hash": "5b23aa3ad2883303d54d5b123ede6c80",
     "packages": [
         {
             "name": "fdroid/php-fdroid",
-            "version": "v0.5.0",
+            "version": "v0.6.5",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/fdroid/php-fdroid.git",
-                "reference": "724d2e7a9f9acf09742d5e6ef13cb5a7edc25dd4"
+                "reference": "e3cb782c6abbb87b7734864ad297e14751666198"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/fdroid%2Fphp-fdroid/repository/archive.zip?sha=724d2e7a9f9acf09742d5e6ef13cb5a7edc25dd4",
-                "reference": "724d2e7a9f9acf09742d5e6ef13cb5a7edc25dd4",
+                "url": "https://gitlab.com/api/v4/projects/fdroid%2Fphp-fdroid/repository/archive.zip?sha=e3cb782c6abbb87b7734864ad297e14751666198",
+                "reference": "e3cb782c6abbb87b7734864ad297e14751666198",
                 "shasum": ""
             },
             "type": "library",
@@ -35,7 +35,7 @@
             "keywords": [
                 "F-Droid"
             ],
-            "time": "2019-01-10T21:36:49+00:00"
+            "time": "2019-07-19T22:04:43+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
