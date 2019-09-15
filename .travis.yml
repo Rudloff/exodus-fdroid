@@ -3,8 +3,6 @@ language: php
 install:
   - pip3 install gplaycli
   - composer install
-before_script: sed -i -e "s/l.decode('utf-8')/l/"
-    vendor/exodus-privacy/exodus-standalone/exodus_analyze.py
 php: 7.3
 dist: xenial
 addons:
