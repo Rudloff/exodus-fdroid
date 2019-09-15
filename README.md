@@ -19,6 +19,8 @@ sudo apt install python3-lxml python3-pyasn1 python3-cryptography python3-future
 
 You also need to install `dexdump` or the list of trackers will always be empty.
 
+(Note that because of [some technical limitations](https://getcomposer.org/doc/faqs/why-can%27t-composer-load-repositories-recursively.md) with `composer global require`, androguard, exodus-core and exodus-standalone are included in this repository.)
+
 ## Usage
 
 You need to pass the ID of the F-Droid app you want to scan:
