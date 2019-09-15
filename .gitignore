@@ -5,3 +5,4 @@ vendor/androguard/androguard/examples/
 __pycache__
 coverage/
 clover.xml
+.phpunit.result.cache

@@ -67,6 +67,7 @@ class ScanCommand extends Command
         $this->setName('exodus-fdroid')
             ->setDescription('Scan an APK')
             ->addUsage('pro.rudloff.openvegemap')
+            ->addUsage('--repo-url https://f-droid.org/archive/ pro.rudloff.openvegemap')
             ->addUsage('--path /path/to/apk')
             ->addArgument(
                 'id',
@@ -78,6 +79,13 @@ class ScanCommand extends Command
                 'p',
                 InputOption::VALUE_REQUIRED,
                 "Scan a local APK instead (don't download it from f-droid.org)"
+            )
+            ->addOption(
+                'repo-url',
+                null,
+                InputOption::VALUE_REQUIRED,
+                "Specify a custom repository URL",
+                'https://f-droid.org/repo/'
             );
     }
 
@@ -116,25 +124,30 @@ class ScanCommand extends Command
     /**
      * Download an APK from f-droid.org.
      *
+     * @param string $repoUrl Repository URL
      * @param string $appId App ID
      *
      * @return string Path to the downloaded APK
      */
-    private function downloadApk($appId)
+    private function downloadApk($repoUrl, $appId)
     {
         $client = new Client(['progress' => [$this, 'displayProgress']]);
 
         if (!is_dir($this->tmpRoot)) {
             mkdir($this->tmpRoot);
         }
+        $repoTmpRoot = $this->tmpRoot.'/'.hash('sha256', $repoUrl);
+        if (!is_dir($repoTmpRoot)) {
+            mkdir($repoTmpRoot);
+        }
 
-        $indexPath = $this->tmpRoot.'index.xml';
+        $indexPath = $repoTmpRoot.'/index.xml';
 
         if (!is_file($indexPath)) {
             $this->io->text('Downloading index file to '.$indexPath);
             $client->request(
                 'GET',
-                'https://f-droid.org/repo/index.xml',
+                $repoUrl.'/index.xml',
                 [
                     'sink' => $indexPath,
                 ]
@@ -156,13 +169,13 @@ class ScanCommand extends Command
             $apkName = $app->package->apkname;
         }
 
-        $apkPath = $this->tmpRoot.$apkName;
+        $apkPath = $repoTmpRoot.'/'.$apkName;
 
         if (!is_file($apkPath)) {
             $this->io->text('Downloading APK file to '.$apkPath);
             $client->request(
                 'GET',
-                'https://f-droid.org/repo/'.$apkName,
+                $repoUrl.'/'.$apkName,
                 [
                     'sink' => $apkPath,
                 ]
@@ -187,11 +200,12 @@ class ScanCommand extends Command
 
         $apkPath = $input->getOption('path');
         $appId = $input->getArgument('id');
+        $repoUrl = $input->getOption('repo-url');
 
         if (!isset($apkPath)) {
             if (isset($appId) && is_string($appId)) {
                 try {
-                    $apkPath = $this->downloadApk($appId);
+                    $apkPath = $this->downloadApk($repoUrl, $appId);
                 } catch (Exception $e) {
                     $this->io->error($e->getMessage());
 

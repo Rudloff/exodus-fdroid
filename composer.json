@@ -7,7 +7,8 @@
     "fdroid/php-fdroid": "^0.6.5",
     "symfony/process": "~3.4.1",
     "guzzlehttp/guzzle": "~6.3.0",
-    "symfony/console": "~3.4.0"
+    "symfony/console": "~3.4.0",
+    "symfony/var-dumper": "^4.3"
   },
   "require-dev": {
     "exodus-privacy/exodus-standalone": "dev-master#c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8",
