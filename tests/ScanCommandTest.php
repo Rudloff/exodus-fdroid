@@ -25,7 +25,7 @@ class ScanCommandTest extends TestCase
     /**
      * Prepare tests.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->commandTester = new CommandTester(
             new ScanCommand(
@@ -56,15 +56,15 @@ class ScanCommandTest extends TestCase
             ['id' => 'pro.rudloff.openvegemap'],
             ['verbosity' => OutputInterface::VERBOSITY_DEBUG]
         );
-        $this->assertContains('OpenVegeMap', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('OpenVegeMap', $this->commandTester->getDisplay());
 
         // We need an app with only one release to test the case where $app->package is not an array.
         $this->commandTester->execute(['id' => 'com.android.talkback']);
-        $this->assertContains('TalkBack', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('TalkBack', $this->commandTester->getDisplay());
 
         // We need an app with some trackers.
         $this->commandTester->execute(['id' => 'org.wikipedia']);
-        $this->assertContains('Wikipedia', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('Wikipedia', $this->commandTester->getDisplay());
     }
 
     /**
@@ -75,6 +75,6 @@ class ScanCommandTest extends TestCase
     public function testExecuteWithInvalidId()
     {
         $this->commandTester->execute(['id' => 'invalid_id']);
-        $this->assertContains('ERROR', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('ERROR', $this->commandTester->getDisplay());
     }
 }
