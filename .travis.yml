@@ -15,3 +15,6 @@ addons:
       - python3-pip
       - python3-setuptools
       - dexdump
+script:
+  - composer lint
+  - composer test

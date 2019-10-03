@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ScanCommand class.
  */
@@ -53,7 +54,7 @@ class ScanCommand extends Command
         if (isset($tmpRoot)) {
             $this->tmpRoot = $tmpRoot;
         } else {
-            $this->tmpRoot = sys_get_temp_dir().'/fdroid/';
+            $this->tmpRoot = sys_get_temp_dir() . '/fdroid/';
         }
     }
 
@@ -136,18 +137,18 @@ class ScanCommand extends Command
         if (!is_dir($this->tmpRoot)) {
             mkdir($this->tmpRoot);
         }
-        $repoTmpRoot = $this->tmpRoot.'/'.hash('sha256', $repoUrl);
+        $repoTmpRoot = $this->tmpRoot . '/' . hash('sha256', $repoUrl);
         if (!is_dir($repoTmpRoot)) {
             mkdir($repoTmpRoot);
         }
 
-        $indexPath = $repoTmpRoot.'/index.xml';
+        $indexPath = $repoTmpRoot . '/index.xml';
 
         if (!is_file($indexPath)) {
-            $this->io->text('Downloading index file to '.$indexPath);
+            $this->io->text('Downloading index file to ' . $indexPath);
             $client->request(
                 'GET',
-                $repoUrl.'/index.xml',
+                $repoUrl . '/index.xml',
                 [
                     'sink' => $indexPath,
                 ]
@@ -169,13 +170,13 @@ class ScanCommand extends Command
             $apkName = $app->package->apkname;
         }
 
-        $apkPath = $repoTmpRoot.'/'.$apkName;
+        $apkPath = $repoTmpRoot . '/' . $apkName;
 
         if (!is_file($apkPath)) {
-            $this->io->text('Downloading APK file to '.$apkPath);
+            $this->io->text('Downloading APK file to ' . $apkPath);
             $client->request(
                 'GET',
-                $repoUrl.'/'.$apkName,
+                $repoUrl . '/' . $apkName,
                 [
                     'sink' => $apkPath,
                 ]
@@ -202,6 +203,10 @@ class ScanCommand extends Command
         $appId = $input->getArgument('id');
         $repoUrl = $input->getOption('repo-url');
 
+        if (is_array($repoUrl)) {
+            $repoUrl = current($repoUrl);
+        }
+
         if (!isset($apkPath)) {
             if (isset($appId) && is_string($appId)) {
                 try {
@@ -221,15 +226,15 @@ class ScanCommand extends Command
         $process = new Process(
             [
                 'python3',
-                __DIR__.'/../vendor/exodus-privacy/exodus-standalone/exodus_analyze.py',
+                __DIR__ . '/../vendor/exodus-privacy/exodus-standalone/exodus_analyze.py',
                 '-j',
                 $apkPath,
             ]
         );
         $process->setEnv(
             [
-                'PYTHONPATH' => __DIR__.'/../vendor/androguard/androguard/:'.
-                    __DIR__.'/../vendor/exodus-privacy/exodus-core/',
+                'PYTHONPATH' => __DIR__ . '/../vendor/androguard/androguard/:' .
+                    __DIR__ . '/../vendor/exodus-privacy/exodus-core/',
             ]
         );
         $process->inheritEnvironmentVariables();
@@ -241,7 +246,7 @@ class ScanCommand extends Command
         if (empty($errorOutput)) {
             $processOutput = $process->getOutput();
             $result = json_decode($processOutput);
-            $this->io->title($result->application->name.' ('.$result->application->version_name.')');
+            $this->io->title($result->application->name . ' (' . $result->application->version_name . ')');
             if (empty($result->trackers)) {
                 $this->io->success('No trackers found');
             } else {

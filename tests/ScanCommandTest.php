@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ScanCommandTest class.
  */
@@ -29,7 +30,7 @@ class ScanCommandTest extends TestCase
     {
         $this->commandTester = new CommandTester(
             new ScanCommand(
-                sys_get_temp_dir().'/'.uniqid('fdroid-test').'/'
+                sys_get_temp_dir() . '/' . uniqid('fdroid-test') . '/'
             )
         );
     }
