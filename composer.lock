@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e80d35edcbbf66a58550c428f0177166",
+    "content-hash": "03355cd841293e38f813acd79c4e39fd",
     "packages": [
         {
             "name": "fdroid/php-fdroid",
@@ -759,18 +759,12 @@
         },
         {
             "name": "exodus-privacy/exodus-standalone",
-            "version": "dev-master",
+            "version": "1.1.0",
             "dist": {
                 "type": "tar",
-                "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8.tar.gz",
-                "reference": "c024cdfa4677dc1fc2fcff7c6773f0633e7d44b8"
+                "url": "https://github.com/Exodus-Privacy/exodus-standalone/archive/v1.1.0.tar.gz"
             },
-            "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Fix an error when listing libraries": "https://github.com/Rudloff/exodus-fdroid/commit/40180a547a857693f797119018ffe8702c01cb92.patch"
-                }
-            }
+            "type": "library"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3482,7 +3476,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "exodus-privacy/exodus-standalone": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
